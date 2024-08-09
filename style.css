@@ -67,17 +67,48 @@ input{
     font-size: 30px;
     text-shadow: 1px 1px 2px rgb(150, 167, 124), 0 0 1em rgb(150, 167, 124), 0 0 0.2em rgb(150, 167, 124);
     font-family: VT323;
-    caret-color: greenyellow;
+    caret-color: transparent;
     z-index: 1;
   }
 
 .typeSmall{
-line-height: normal;
+    line-height: normal;
+    font-size: 40px;
+    margin-right: 50px;
+    text-align: center;
+    margin-top: 200px;
 }
 
 .input-field {
     position: relative;
     padding-left: 10px;
+}
+.caret {
+    display: inline-block;
+    width: 1ch;
+    height: 1em;
+    background: greenyellow;
+    animation: blink 1s step-start infinite;
+    vertical-align: top;
+    position: absolute;
+    left: 5px;
+    box-shadow: 1px 1px 5px rgb(150, 167, 124);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.input-container {
+    position: relative;
+    width: 300px;
 }
 
 .input-field::after {
