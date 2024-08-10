@@ -66,9 +66,10 @@ async function openTerminal() {
     await delay(700);
     createText("Starting the server...");
     await delay(1500);
-    createText("You can run several commands");
+    createText("Try the following commands.");
     createText("----------------------------");
     createCode("help", "See all commands.");
+    createCode("open linkedin", "Opens my linked in account!");
     await delay(500);
     new_line();
 }
@@ -119,7 +120,7 @@ async function getInputValue() {
         trueValue(value);
         createCode("about", "About me.");
         createCode("resume", "Check out my resume.");
-        createCode("social -a", "All my social networks.");
+        createCode("socials", "All my social networks.");
         createCode("open &lt;social&gt;", "Opens my social media account. Follow me there!")
         createCode("snake", "Play the snake game.");
         createCode("clear", "Clean the terminal.");
@@ -142,7 +143,7 @@ async function getInputValue() {
         createText("Hi, I am Syeeda Aiemen Dania Saleem! Call me Aiemen :)");
     } 
     
-    else if (value === "social -a") {
+    else if (value === "socials") {
         trueValue(value);
         createText("1.  github.com/BigBoyBrains");
         createText("2.  linkedin.com/in/syeeda-aiemen-dania-saleem");
@@ -152,7 +153,7 @@ async function getInputValue() {
     
     else if (value === "social") {
         trueValue(value);
-        createText("Didn't you mean: social -a?");
+        createText("Didn't you mean: socials?");
     }
     
     else if (value === "open github"){
@@ -253,6 +254,14 @@ function createCanvasForSnakeGame() {
         existingCanvas.remove();
     }
 
+    const instructionText = document.createElement("p");
+    instructionText.setAttribute("id", "startMessage");
+    instructionText.style.color = "greenyellow";
+    instructionText.style.fontFamily = "VT323";
+    instructionText.style.fontSize = "30px";
+    instructionText.textContent = "Press any arrow key to start the game.";
+    app.appendChild(instructionText);
+
     const canvas = document.createElement("canvas");
     canvas.setAttribute("id", "snakeGameCanvas");
     canvas.setAttribute("width", "500");
@@ -311,7 +320,12 @@ function startSnakeGame(scoreElement, gameOverElement) {
 
     function update() {
         if (gameOver) {
+            const instructionText = document.getElementById("startMessage");
+            if (instructionText) {
+                instructionText.remove();
+            }
             canvas.style.display = 'none';
+            
             return;
         }
 
