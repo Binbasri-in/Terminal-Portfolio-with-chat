@@ -74,6 +74,7 @@ async function openTerminal() {
     await delay(700);
     createText("Starting the server...");
     await delay(1500);
+    createText("<br>");
     createText("Try the following commands.");
     createText("----------------------------");
     createCode("help", "See all commands.");
@@ -127,6 +128,7 @@ async function getInputValue() {
     if (value === "help") {
         trueValue(value);
         createCode("about", "About me.");
+        createCode("interests", "Stuff that gets me excited!")
         createCode("resume", "Check out my resume.");
         createCode("socials", "All my social networks.");
         createCode("open &lt;social&gt;", "Opens my social media account. Follow me there!")
@@ -134,6 +136,15 @@ async function getInputValue() {
         createCode("clear", "Clean the terminal.");
     } 
     
+    else if(value === "interests"){
+        trueValue(value);
+        createText("1.  Graphic Design");
+        createText("2.  Game Development");
+        createText("3.  Application Development");
+        createText("4.  IoT");
+
+    }
+
     else if (value === "resume") {
         trueValue(value);
         createText("Opening resume...");
@@ -196,6 +207,7 @@ async function getInputValue() {
     else {
         falseValue(value);
         createText(`Command not found: ${value}`);
+        createText("Try 'help' to list all commands.")
     }
 }
 
@@ -317,7 +329,7 @@ function startSnakeGame(scoreElement, gameOverElement) {
     let foodY;
     let score = 0;
     let gameOver = false;
-    let gameOverProcessed = false; // Flag to prevent multiple new lines
+    let gameOverProcessed = false;
 
     placeFood();
     document.addEventListener("keyup", changeDirection);
@@ -332,14 +344,14 @@ function startSnakeGame(scoreElement, gameOverElement) {
     function update() {
         if (gameOver) {
             if (!gameOverProcessed) {
-                gameOverProcessed = true; // Set the flag to true after processing game over
+                gameOverProcessed = true;
                 const instructionText = document.getElementById("startMessage");
                 if (instructionText) {
                     instructionText.remove();
                 }
                 canvas.style.display = 'none';
                 gameOverElement.textContent = "Game Over!";
-                new_line(); // Add new line after game over
+                new_line();
             }
             return;
         }
