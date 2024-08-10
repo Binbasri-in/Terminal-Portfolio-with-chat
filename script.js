@@ -69,7 +69,7 @@ async function openTerminal() {
     createText("Try the following commands.");
     createText("----------------------------");
     createCode("help", "See all commands.");
-    createCode("open linkedin", "Opens my linked in account!");
+    createCode("open linkedin", "Opens my LinkedIn account!");
     await delay(500);
     new_line();
 }
