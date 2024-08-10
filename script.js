@@ -54,54 +54,6 @@ document.addEventListener("click", function(event) {
     input.focus();
 });
 
-
-//----------------------------------------------------------
-
-function createLoadingBar() {
-    // Create the container div for the progress bar
-    const progressContainer = document.createElement("div");
-    progressContainer.setAttribute("id", "myProgress");
-    progressContainer.style.width = "100%";
-    progressContainer.style.backgroundColor = "grey";
-
-    // Create the inner div for the bar
-    const progressBar = document.createElement("div");
-    progressBar.setAttribute("id", "myBar");
-    progressBar.style.width = "1%";
-    progressBar.style.height = "30px";
-    progressBar.style.backgroundColor = "green";
-
-    // Append the progress bar to the container
-    progressContainer.appendChild(progressBar);
-
-    // Append the progress container to the body or another container
-    document.body.appendChild(progressContainer);
-}
-
-function moveLoadingBar(callback) {
-    let i = 0;
-    if (i === 0) {
-        i = 1;
-        const elem = document.getElementById("myBar");
-        let width = 1;
-        const id = setInterval(frame, 10);
-
-        function frame() {
-            if (width >= 100) {
-                clearInterval(id);
-                i = 0;
-                // Execute the callback function after the loading bar completes
-                if (callback) {
-                    callback();
-                }
-            } else {
-                width++;
-                elem.style.width = width + "%";
-            }
-        }
-    }
-}
-
 async function openTerminal() {
 
     if (smallScreen()) {
@@ -135,6 +87,7 @@ function new_line() {
 
     const input = document.createElement("input");
     input.setAttribute("type", "text");
+    input.setAttribute("autocomplete", "off");
     input.setAttribute("id", "input-box");
     input.setAttribute("class", "input-field");
     input.setAttribute("oninput", "moveCaret(this)");
