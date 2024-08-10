@@ -33,16 +33,24 @@ function smallScreen(){
 }
 
 document.addEventListener("keydown", async function(event) {
+    // Prevent default scrolling behavior for arrow keys
+    if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+    }
+    
     const input = document.querySelector("input.input-field");
     if (event.key === "Enter") {
         event.preventDefault();
         await delay(150);
+        const value = document.querySelector("input").value;
+        if (value === "snake") {
+            getInputValue();
+            removeInput();
+        }
         getInputValue();
         removeInput();
         await delay(150);
         new_line();
-    } else if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-        moveCursor(event);
     } else {
         updateCursor(input);
     }
@@ -104,8 +112,8 @@ function new_line() {
     container.appendChild(inputContainer);
 
     app.appendChild(container);
-
     input.focus();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
 
 function removeInput() {
@@ -283,6 +291,8 @@ function createCanvasForSnakeGame() {
     gameOverElement.style.fontSize = "30px";
     app.appendChild(gameOverElement);
 
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
     startSnakeGame(scoreElement, gameOverElement);
     resetEnterPressedFlag();
 }
@@ -307,6 +317,7 @@ function startSnakeGame(scoreElement, gameOverElement) {
     let foodY;
     let score = 0;
     let gameOver = false;
+    let gameOverProcessed = false; // Flag to prevent multiple new lines
 
     placeFood();
     document.addEventListener("keyup", changeDirection);
@@ -320,12 +331,16 @@ function startSnakeGame(scoreElement, gameOverElement) {
 
     function update() {
         if (gameOver) {
-            const instructionText = document.getElementById("startMessage");
-            if (instructionText) {
-                instructionText.remove();
+            if (!gameOverProcessed) {
+                gameOverProcessed = true; // Set the flag to true after processing game over
+                const instructionText = document.getElementById("startMessage");
+                if (instructionText) {
+                    instructionText.remove();
+                }
+                canvas.style.display = 'none';
+                gameOverElement.textContent = "Game Over!";
+                new_line(); // Add new line after game over
             }
-            canvas.style.display = 'none';
-            
             return;
         }
 
@@ -371,7 +386,7 @@ function startSnakeGame(scoreElement, gameOverElement) {
         if (snakeX < 0 || snakeX >= cols * blockSize || snakeY < 0 || snakeY >= rows * blockSize || enterPressed) {
             gameOver = true;
             gameOverElement.textContent = "Game Over!";
-            canvas.style.display = 'none'; 
+            canvas.style.display = 'none';
         }
 
         for (let i = 0; i < snakeBody.length; i++) {
@@ -413,8 +428,6 @@ function startSnakeGame(scoreElement, gameOverElement) {
         context.fillText('+', (borderOffset-7), canvas.height - (borderOffset-7));
         context.fillText('+', canvas.width - (borderOffset-7), canvas.height - (borderOffset-7));
     }
-    
-    
 
     function changeDirection(e) {
         if (e.code == "ArrowUp" && velocityY != 1) {
@@ -437,6 +450,7 @@ function startSnakeGame(scoreElement, gameOverElement) {
         foodY = Math.floor(Math.random() * rows) * blockSize;
     }
 }
+
 function resetEnterPressedFlag() {
     enterPressed = false;
 }
