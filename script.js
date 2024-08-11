@@ -132,7 +132,7 @@ async function getInputValue() {
         createCode("resume", "Check out my resume.");
         createCode("socials", "All my social networks.");
         createCode("open &lt;social&gt;", "Opens my social media account. Follow me there!")
-        createCode("ask &lt;your-question&gt;", "If you want to know specific thing about me, ask me here!");
+        createCode("ask &lt;your-question&gt;", "If you want to know specific thing about me, ask me here! (e.g: ask who are you?)");
         createCode("snake", "Play the snake game.");
         createCode("clear", "Clean the terminal.");
     }
@@ -493,7 +493,7 @@ openTerminal();
 function answerQuestion(question) {
     console.log('Answering question:', question);
     // use Gemini API to answer the question
-    const API_KEY = "<set-your-key>";
+    const API_KEY = "AIzaSyCbrvlWGuOkk7VYDQ78ijl4Iw6Bm8_3i8c";
 
     // Data to be sent in the body of the POST request
     const postData = {
@@ -511,7 +511,7 @@ function answerQuestion(question) {
             role: "user",
             parts: [
                 {
-                    text: `You are an AI Assistant tasked with generating answer to the provided question using the provided context. You should answer 
+                    text: `You are an AI Assistant tasked with generating concise answer to the provided question using the provided context. You should answer 
                     like you are speaking in my place and you represent my profile. 
                     Here is the context:
                     Profile of Mohammed Ali Al Sakkaf Mohammed Ali Al Sakkaf is a committed and proficient software developer currently freelancing 
