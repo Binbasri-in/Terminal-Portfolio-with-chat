@@ -493,7 +493,7 @@ openTerminal();
 function answerQuestion(question) {
     console.log('Answering question:', question);
     // use Gemini API to answer the question
-    const API_KEY = "<set-your-key>";
+    const API_KEY = process.env.API_KEY;
 
     // Data to be sent in the body of the POST request
     const postData = {
